@@ -17,10 +17,10 @@ export default (context: Context): Express => {
 
   server.use(json())
   server.use(compression())
+  server.use(cors())
 
   /* istanbul ignore next */
   if (isProd) {
-    server.use(cors())
     server.use(helmet())
   }
 

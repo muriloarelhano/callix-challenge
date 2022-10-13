@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  backend:
+    container_name: callix-challenge-backend
+    image: callix-challenge-backend
+    build:
+      dockerfile: Dockerfile
+      context: ./backend/
+    ports:
+      - 3000:3000
+    env_file:
+      - ./backend/.env
+    networks:
+      - callix-challenge
+
+  frontend:
+    container_name: callix-challenge-frontend
+    image: callix-challenge-frontend
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend/
+    ports:
+      - 3001:3001
+    env_file:
+      - ./frontend/.env
+    networks:
+      - callix-challenge
+
+networks:
+  callix-challenge:

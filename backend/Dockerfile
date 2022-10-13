@@ -1,12 +1,17 @@
 FROM node:lts-alpine
 
-WORKDIR /api
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
 
-RUN npm rebuild \
-  ; touch newrelic_agent.log && chmod 777 newrelic_agent.log
+RUN npm run build
 
 USER node
+
+EXPOSE 3000
 
 CMD ["node", "dist/app/index.js"]
