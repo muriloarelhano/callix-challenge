@@ -1,6 +1,8 @@
 import { Heading, Container, Grid, Text, VStack, Box } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
+import { LaunchCard } from "./components/LaunchCard";
+import { LaunchListCard } from "./components/LaunchCardList";
 import { SpaceXApiResponse } from "./interfaces";
 import {
   getLastLaunch,
@@ -12,7 +14,7 @@ import {
 function App() {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [nextLaunches, setNextLaunches] = useState<SpaceXApiResponse | null>(
+  const [nextLaunch, setNextLaunches] = useState<SpaceXApiResponse | null>(
     null
   );
   const [lastLaunch, setLastLaunch] = useState<SpaceXApiResponse | null>(null);
@@ -31,68 +33,34 @@ function App() {
 
   return (
     <Container maxW={"container.lg"} mt={"10"}>
-      <Heading>SpaceX Public Data</Heading>
+      <Heading mb={"5"}>SpaceX Public Data </Heading>
       <Text>{isLoaded ? "Carregando..." : ""}</Text>
       <Text>{error ? "Ocorreu um erro inesperado" : ""}</Text>
-      <Grid templateColumns={"300px 300px 300px 300px"} my={"10"}>
-        <VStack>
-          <Text>Next Launch</Text>
-          <Box border={"1px solid gray"} borderRadius={"md"} p={"5"}>
-            <Text>{nextLaunches?.name}</Text>
-            <Text>
-              {DateTime.fromISO(nextLaunches?.date_local || "").toLocaleString(
-                DateTime.DATETIME_SHORT
-              )}
-            </Text>
-          </Box>
-        </VStack>
-        <VStack>
-          <Text>Last Launch</Text>
-          <Box border={"1px solid gray"} borderRadius={"md"} p={"5"}>
-            <Text>{lastLaunch?.name}</Text>
-            <Text>
-              {DateTime.fromISO(lastLaunch?.date_local || "").toLocaleString(
-                DateTime.DATETIME_SHORT
-              )}
-            </Text>
-          </Box>
-        </VStack>
-        <VStack>
-          <Text>Upcoming Launch</Text>
-          {upcomingLaunches.map((launch, index) => (
-            <Box
-              key={index}
-              border={"1px solid gray"}
-              borderRadius={"md"}
-              p={"5"}
-            >
-              <Text>{launch.name}</Text>
-              <Text>
-                {DateTime.fromISO(launch.date_local || "").toLocaleString(
-                  DateTime.DATETIME_SHORT
-                )}
-              </Text>
-            </Box>
-          ))}
-        </VStack>
-        <VStack>
-          <Text>Past Launch</Text>
-          {pastLaunches.map((launch, index) => (
-            <Box
-              key={index}
-              border={"1px solid gray"}
-              borderRadius={"md"}
-              p={"5"}
-            >
-              <Text>{launch.name}</Text>
-              <Text>
-                {DateTime.fromISO(launch.date_local || "").toLocaleString(
-                  DateTime.DATETIME_SHORT
-                )}
-              </Text>
-            </Box>
-          ))}
-        </VStack>
+      <Grid templateColumns={"300px 300px 300px 300px"} gap={"5"}>
+        {nextLaunch ? (
+          <LaunchCard launchData={nextLaunch} title={"Next Launch"} />
+        ) : (
+          ""
+        )}
+
+        {lastLaunch ? (
+          <LaunchCard launchData={lastLaunch} title={"Last Launch"} />
+        ) : (
+          ""
+        )}
+        {upcomingLaunches ? (
+          <LaunchListCard
+            launchesData={upcomingLaunches}
+            title={"Upcoming Launch"}
+          />
+        ) : (
+          ""
+        )}
+        {pastLaunches ? (
+          <LaunchListCard launchesData={pastLaunches} title={"Past Launch"} />
+        ) : (
+          ""
+        )}
       </Grid>
     </Container>
   );
