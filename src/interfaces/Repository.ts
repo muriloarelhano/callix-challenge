@@ -1,6 +1,8 @@
+import { SpaceXApiResponse } from './Responses'
+
 export interface SpaceXApiRepositoryInterface {
-  getNextLaunch(): Promise<any>
-  getLastLaunch(): Promise<any>
-  getUpcomingLaunches(): Promise<any>
-  getPastLaunches(): Promise<any>
+  getNextLaunch(): Promise<SpaceXApiResponse>
+  getLastLaunch(): Promise<SpaceXApiResponse>
+  getUpcomingLaunches(): Promise<SpaceXApiResponse[]>
+  getPastLaunches(): Promise<SpaceXApiResponse[]>
 }

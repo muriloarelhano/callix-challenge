@@ -1,8 +1,9 @@
 import { Context } from '../interfaces'
+import { httpClient } from './axios'
+import { SpaceXApiRepository } from './repositories'
 
 export const ctx: Context = {
   repository: {
-    spacexApi: '',
+    spaceXApi: new SpaceXApiRepository(httpClient),
   },
 }
-
