@@ -1,0 +1,24 @@
+openapi: 3.0.2
+info:
+  title: Microservice Codebase
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+    description: Development
+
+paths:
+  /ping:
+    get:
+      description: 'This functions bla bla...'
+      summary: Function to bla bla bla
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
+        '500':
+          description: Internal Sever Error

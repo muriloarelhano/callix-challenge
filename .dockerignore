@@ -1,0 +1,14 @@
+.env.*
+.gitignore
+.dockerignore
+.eslintrc
+.editorconfig
+.git/
+
+nodemon.json
+README.md
+
+tests/
+coverage/
+documentation/
+docs/
