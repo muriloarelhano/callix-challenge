@@ -1,20 +1,20 @@
-import { SpaceXApiRepositoryInterface } from '../../interfaces'
 import { AxiosInstance } from 'axios'
+import { SpaceXApiRepositoryInterface } from '../../interfaces'
 import { SpaceXApiResponse } from '../../interfaces/Responses'
 
 export class SpaceXApiRepository implements SpaceXApiRepositoryInterface {
   constructor(private readonly httpClient: AxiosInstance) {}
 
-  getNextLaunch(): Promise<SpaceXApiResponse> {
-    return this.httpClient.get('launches/next')
+  async getNextLaunch(): Promise<SpaceXApiResponse> {
+    return (await this.httpClient.get('launches/next')).data
   }
-  getLastLaunch(): Promise<SpaceXApiResponse> {
-    return this.httpClient.get('launches/last')
+  async getLastLaunch(): Promise<SpaceXApiResponse> {
+    return (await this.httpClient.get('launches/latest')).data
   }
-  getUpcomingLaunches(): Promise<SpaceXApiResponse[]> {
-    return this.httpClient.get('launches/upcoming')
+  async getUpcomingLaunches(): Promise<SpaceXApiResponse[]> {
+    return (await this.httpClient.get('launches/upcoming')).data
   }
-  getPastLaunches(): Promise<SpaceXApiResponse[]> {
-    return this.httpClient.get('launches/past')
+  async getPastLaunches(): Promise<SpaceXApiResponse[]> {
+    return (await this.httpClient.get('launches/past')).data
   }
 }

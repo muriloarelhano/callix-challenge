@@ -1,21 +1,21 @@
-import express, { Request, Response, Express } from 'express'
-import bodyParser from 'body-parser'
 import compression from 'compression'
-import helmet from 'helmet'
 import cors from 'cors'
+import express, { Express, json, Request, Response } from 'express'
+import helmet from 'helmet'
 
-import router from './routes'
-import { join } from 'path'
 import YAML from 'js-yaml'
 import JsonRefs from 'json-refs'
+import { join } from 'path'
 import swaggerUi from 'swagger-ui-express'
+import { Context } from '../../../interfaces'
+import router from './routes'
 
 const isProd = process.env.NODE_ENV === 'production'
 
-export default async (context: any): Promise<Express> => {
+export default (context: Context): Express => {
   const server = express()
 
-  server.use(bodyParser.json())
+  server.use(json())
   server.use(compression())
 
   /* istanbul ignore next */
@@ -24,23 +24,22 @@ export default async (context: any): Promise<Express> => {
     server.use(helmet())
   }
 
-  try {
-    const docPath =
-      process.env.NODE_ENV === 'development'
-        ? join(__dirname, '..', '..', '..', '..', '/docs/api/openapi.yaml')
-        : join(__dirname, '..', '..', '..', '/docs/api/openapi.yaml')
-    const docs = await JsonRefs.resolveRefsAt(docPath, {
-      loaderOptions: {
-        processContent: (content: any, callback: any) => {
-          callback(undefined, YAML.load(content.text))
-        },
-      },
-    })
+  const docPath =
+    process.env.NODE_ENV === 'development'
+      ? join(__dirname, '..', '..', '..', '..', '/docs/api/openapi.yaml')
+      : join(__dirname, '..', '..', '..', '/docs/api/openapi.yaml')
 
-    server.use('/docs', swaggerUi.serve, swaggerUi.setup(docs.resolved, { explorer: true }))
-  } catch (error: any) {
-    console.warn(error.message)
-  }
+  JsonRefs.resolveRefsAt(docPath, {
+    loaderOptions: {
+      processContent: (content: any, callback: any) => {
+        callback(undefined, YAML.load(content.text))
+      },
+    },
+  })
+    .then((docs) => {
+      server.use('/docs', swaggerUi.serve, swaggerUi.setup(docs.resolved, { explorer: true }))
+    })
+    .catch((err) => console.warn(err.message))
 
   /*This function is used to kubernetes liveness probe */
   server.get('/health', (_req: Request, res: Response) => {
