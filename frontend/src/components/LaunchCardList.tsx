@@ -18,7 +18,6 @@ export const LaunchListCard: React.FC<LaunchCardListProps> = ({
         fontWeight={"semibold"}
         fontSize={"lg"}
         position={"fixed"}
-        bg={"white"}
         w={"100%"}
         pb={"0.5"}
       >

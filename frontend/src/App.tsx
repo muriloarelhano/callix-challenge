@@ -1,5 +1,13 @@
-import { Heading, Container, Grid, Text, VStack, Box } from "@chakra-ui/react";
-import { DateTime } from "luxon";
+import {
+  Button,
+  Container,
+  Grid,
+  Heading,
+  HStack,
+  Switch,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { LaunchCard } from "./components/LaunchCard";
 import { LaunchListCard } from "./components/LaunchCardList";
@@ -10,6 +18,8 @@ import {
   getPastLaunches,
   getUpcomingLaunches,
 } from "./services/spaceXApiSerice";
+import { BsMoonStarsFill, BsSun } from "react-icons/bs";
+import useGoogleOptimize from "@react-hook/google-optimize";
 
 function App() {
   const [error, setError] = useState(false);
@@ -22,6 +32,7 @@ function App() {
     []
   );
   const [pastLaunches, setPastLaunches] = useState<SpaceXApiResponse[]>([]);
+  const { toggleColorMode, colorMode } = useColorMode();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -31,12 +42,25 @@ function App() {
     getPastLaunches(setPastLaunches, setError, setIsLoaded);
   }, []);
 
+  const ButtonVariant = useGoogleOptimize<any>(
+    process.env.REACT_APP_OPTIMIZE_ID || "",
+    [
+      <Button onClick={toggleColorMode} w="fit-content">
+        {colorMode === "light" ? <BsMoonStarsFill /> : <BsSun />}
+      </Button>,
+      <Switch size="lg" onChange={toggleColorMode} />,
+    ]
+  );
+
   return (
-    <Container maxW={"container.lg"} mt={"10"}>
-      <Heading mb={"5"}>SpaceX Public Data </Heading>
+    <Container maxW={"container.xl"} mt={"10"}>
+      <HStack align={"center"} mb={"5"} w={"100%"} justify={"space-between"}>
+        <Heading>SpaceX Public Data </Heading>{" "}
+        {ButtonVariant ? <ButtonVariant /> : <Text>Loading...</Text>}
+      </HStack>
       <Text>{isLoaded ? "Carregando..." : ""}</Text>
       <Text>{error ? "Ocorreu um erro inesperado" : ""}</Text>
-      <Grid templateColumns={"300px 300px 300px 300px"} gap={"5"}>
+      <Grid templateColumns={"1fr 1fr 1fr 1fr"} gap={"5"}>
         {nextLaunch ? (
           <LaunchCard launchData={nextLaunch} title={"Next Launch"} />
         ) : (
