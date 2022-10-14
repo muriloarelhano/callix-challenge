@@ -4,7 +4,7 @@
   "description": "Callix Challenge",
   "main": "dist/app/index.js",
   "scripts": {
-    "start": "node dist/app/index.js",
+    "start": "node ./dist/app/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only src/app/index.ts --ignore-watch tests/**/*",
     "test": "tsc && jest tests --forceExit --colors",
     "test:debug": "tsc && jest tests --detectOpenHandles --forceExit --colors",

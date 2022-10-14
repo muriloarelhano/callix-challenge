@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<script src="https://www.googleoptimize.com/optimize.js?id=%REACT_APP_CONTAINER_OPTIMIZE_ID%"></script>
+
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -39,13 +41,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
-<script async src="https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_ID%"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  gtag = function () { dataLayer.push(arguments); }
-  gtag('js', new Date());
 
-  gtag('config', '%REACT_APP_GA_ID%', { 'optimize_id': '%REACT_APP_OPTIMIZE_ID%' });
-</script>
 
 </html>
