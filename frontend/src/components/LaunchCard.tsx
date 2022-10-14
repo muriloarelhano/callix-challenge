@@ -17,7 +17,13 @@ export const LaunchCard: React.FC<LaunchCardProps> = ({
       <Text fontWeight={"semibold"} fontSize={"lg"}>
         {title}
       </Text>
-      <Box border={"1px solid gray"} borderRadius={"md"} p={"5"} width={"100%"}>
+      <Box
+        border={"1px solid gray"}
+        borderRadius={"md"}
+        p={"5"}
+        width={"100%"}
+        boxShadow={"base"}
+      >
         <Text>{launchData.name}</Text>
         <Text>
           {DateTime.fromISO(launchData.date_local || "").toLocaleString(
