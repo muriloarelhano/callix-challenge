@@ -5,20 +5,23 @@ info:
 servers:
   - url: http://localhost:3000
     description: Development
+  - url: https://callix-challenge-2.herokuapp.com/
+    description: Production
 
 paths:
-  /ping:
+  /health:
     get:
-      description: 'This functions bla bla...'
-      summary: Function to bla bla bla
-      parameters: []
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
       responses:
         '200':
           description: OK
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: pong
+                properties:
+                  status:
+                    type: string
+                    example: ok
         '500':
           description: Internal Sever Error
