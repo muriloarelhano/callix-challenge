@@ -4,7 +4,7 @@
   "description": "Callix Challenge",
   "main": "dist/app/index.js",
   "scripts": {
-    "start": "node dist/app/index.js",
+    "start": "node ./dist/app/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only src/app/index.ts --ignore-watch tests/**/*",
     "test": "tsc && jest tests --forceExit --colors",
     "test:debug": "tsc && jest tests --detectOpenHandles --forceExit --colors",
@@ -13,7 +13,8 @@
     "copy-files": "copyfiles -u 1 src/**/*.proto src/**/*.gql dist/",
     "build": "npm run clean && tsc && npm run copy-files",
     "lint": "eslint src/ tests/",
-    "preinstall": "npx npm-force-resolutions"
+    "preinstall": "npx npm-force-resolutions",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",
