@@ -1,6 +1,6 @@
 import axios from "axios";
 const spaceXApiHttpClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: process.env.REACT_APP_SPACEX_API_URL || "http://localhost:3000",
 });
 
 export const getNextLaunch = async (
