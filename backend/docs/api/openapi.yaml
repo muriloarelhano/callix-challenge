@@ -25,3 +25,39 @@ paths:
                     example: ok
         '500':
           description: Internal Sever Error
+  /launches/next:
+    get:
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error
+  /launches/last:
+    get:
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error
+  /launches/upcoming:
+    get:
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error
+  /launches/past:
+    get:
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error

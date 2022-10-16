@@ -21,9 +21,11 @@ services:
       dockerfile: Dockerfile
       context: ./frontend/
     ports:
-      - 3001:3001
+      - 80:80
     env_file:
       - ./frontend/.env
+    environment:
+      REACT_APP_SPACEX_API_URL: "http://backend:3000/"
     networks:
       - callix-challenge
 

@@ -41,4 +41,6 @@ docker-compose up -d --build
 Esse comando iniciara o processo de build das aplicações e disponibilizará as aplicações das seguintes portas:
 
 - backend: http://localhost:3000
-- frontend: http://localhost:3001
+- frontend: http://localhost
+
+_OBS: por questões de segurança oi script da hotjar só funciona com HTTPS_
