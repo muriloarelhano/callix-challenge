@@ -43,4 +43,4 @@ Esse comando iniciara o processo de build das aplicações e disponibilizará as
 - backend: http://localhost:3000
 - frontend: http://localhost
 
-_OBS: por questões de segurança oi script da hotjar só funciona com HTTPS_
+**_OBS: por questões de segurança oi script da hotjar só funciona com HTTPS_**
