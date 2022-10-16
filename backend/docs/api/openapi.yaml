@@ -1,24 +1,76 @@
 openapi: 3.0.2
 info:
-  title: Microservice Codebase
+  title: SpaceX API Backend
   version: '1.0'
 servers:
   - url: http://localhost:3000
     description: Development
+  - url: https://callix-challenge-2.herokuapp.com/
+    description: Production
 
 paths:
-  /ping:
+  /health:
     get:
-      description: 'This functions bla bla...'
-      summary: Function to bla bla bla
-      parameters: []
+      tags:
+        - helpers
+      description: This route returns status of service and sub-services.
+      summary: Route to check service health
       responses:
         '200':
           description: OK
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: pong
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  services:
+                    type: object
+                    properties:
+                      swagger:
+                        type: string
+                        example: ok
+        '500':
+          description: Internal Sever Error
+  /launches/next:
+    get:
+      tags:
+        - launches
+      summary: Return next launch
+      responses:
+        '200':
+          description: OK
+
+        '500':
+          description: Internal Sever Error
+  /launches/last:
+    get:
+      tags:
+        - launches
+      summary: Return the last launch
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error
+  /launches/upcoming:
+    get:
+      tags:
+        - launches
+      summary: Return upcoming launches
+      responses:
+        '200':
+          description: OK
+        '500':
+          description: Internal Sever Error
+  /launches/past:
+    get:
+      tags:
+        - launches
+      summary: Return past launches
+      responses:
+        '200':
+          description: OK
         '500':
           description: Internal Sever Error
